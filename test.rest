@@ -1,0 +1,31 @@
+GET http://localhost:4040/fanbase
+
+###
+GET http://localhost:4040/fanbase/220
+
+###
+GET http://localhost:4040/fanbase/63c27ce006c210e697f4062a
+
+###
+
+POST http://localhost:4040/fanbase/create
+Content-Type:"application/json"
+
+{
+    "name":"kannasdsn",
+    "age":24,
+    "actorName":"vijay"
+}
+
+###
+
+PATCH http://localhost:4040/fanbase/63c27d8a9f0affe2f57e79de
+Content-Type:"application/json"
+
+{
+    "name":"updated",
+    
+}
+
+###
+DELETE  http://localhost:4040/fanbase/63c27ce006c210e697f4062a
