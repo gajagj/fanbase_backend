@@ -5,11 +5,11 @@ const sendSuccessResponse = (res, data = [], msg) => {
     data,
   });
 };
-const sendErrorResponse = (res, data = [], msg) => {
-  return res.status(400).json({
+const sendErrorResponse = (res, stat, msg) => {
+  return res.status(stat).json({
     message: msg || "Error",
     result: false,
-    data,
+    data: [],
   });
 };
 

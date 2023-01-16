@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     const fans = await Fanbase.find();
     sendSuccessResponse(res, fans);
   } catch (err) {
-    sendErrorResponse(res, [], err.message);
+    sendErrorResponse(res, 500, err.message);
   }
 });
 
@@ -19,7 +19,7 @@ router.get("/:id", getFanDataById, async (req, res) => {
   try {
     sendSuccessResponse(res, res.fan.name);
   } catch (err) {
-    sendErrorResponse(res, [], err.message);
+    sendErrorResponse(res, 500, err.message);
   }
 });
 
@@ -29,7 +29,7 @@ router.post("/create", async (req, res) => {
     // check whether the fan already exists
     const fanExists = await Fanbase.findOne({ name: req.body.name });
     if (fanExists) {
-      sendErrorResponse(res, [], "Fan already exists");
+      sendErrorResponse(res, 400, "Fan already exists");
     }
     const createFan = new Fanbase({
       name: req.body.name,
@@ -39,7 +39,7 @@ router.post("/create", async (req, res) => {
     const newFan = await createFan.save();
     sendSuccessResponse(res, newFan, "Fan created successfully");
   } catch (err) {
-    sendErrorResponse(res, [], err.message);
+    sendErrorResponse(res, 500, err.message);
   }
 });
 
@@ -59,7 +59,7 @@ router.patch("/:id", getFanDataById, async (req, res) => {
     await res.fan.save();
     sendSuccessResponse(res, res.fan, "Fan updated successfully");
   } catch (err) {
-    sendErrorResponse(res, [], err.message);
+    sendErrorResponse(res, 400, err.message);
   }
 });
 
@@ -68,13 +68,13 @@ router.patch("/:id", getFanDataById, async (req, res) => {
 //   try {
 //     Fanbase.findByIdAndDelete({ _id: req.params.id }, (err, fan) => {
 //       if (err) {
-//         sendErrorResponse(res, [], err.message);
+//         sendErrorResponse(res, 500, err.message);
 //       } else {
 //         sendSuccessResponse(res, fan, "Fan deleted successfully");
 //       }
 //     });
 //   } catch (err) {
-//     sendErrorResponse(res, [], err.message);
+//     sendErrorResponse(res, 500, err.message);
 //   }
 // });
 
@@ -84,7 +84,7 @@ router.delete("/:id", getFanDataById, async (req, res) => {
     await res.fan.remove();
     sendSuccessResponse(res, res.fan, "Fan deleted successfully");
   } catch (err) {
-    sendErrorResponse(res, [], err.message);
+    sendErrorResponse(res, 500, err.message);
   }
 });
 
