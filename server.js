@@ -21,8 +21,11 @@ app.use(express.json());
 
 // add your routes here
 const fanRouter = require("./routes/fan/fanRoute");
-app.use("/fanbase", fanRouter);
+const adminRouter = require("./routes/admin/adminRoute");
 
-app.listen(4040, () => {
-  console.log("server is running on port 4040");
+app.use("/fanbase", fanRouter);
+app.use("/admin", adminRouter);
+
+app.listen(process.env.PORT, () => {
+  console.log("server is running on port " + process.env.PORT);
 });
