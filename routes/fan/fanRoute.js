@@ -30,6 +30,7 @@ router.post("/create", async (req, res) => {
     const fanExists = await Fanbase.findOne({ name: req.body.name });
     if (fanExists) {
       sendErrorResponse(res, 400, "Fan already exists");
+      return;
     }
     const createFan = new Fanbase({
       name: req.body.name,
@@ -89,3 +90,20 @@ router.delete("/:id", getFanDataById, async (req, res) => {
 });
 
 module.exports = router;
+
+// without the mongoose ORM , we can do the same with native mongodb driver like below
+// const express = require('express');
+// const router = express.Router();
+// const MongoClient = require('mongodb').MongoClient;
+
+// router.get("/", async (req, res) => {
+//   try {
+//     const client = await MongoClient.connect(mongoUrl, { useNewUrlParser: true });
+//     const db = client.db(dbName);
+//     const users = await db.collection('users').find().toArray();
+//     sendSuccessResponse(res, users, "Users fetched successfully");
+//     client.close();
+//   } catch (err) {
+//     sendErrorResponse(res, 500, err.message);
+//   }
+// });

@@ -13,6 +13,7 @@ router.post("/signup", async (req, res) => {
     const isExist = Admin.findOne({ email: req.body.email });
     if (isExist) {
       sendErrorResponse(res, 400, "Email already exists");
+      return;
     }
     const newAdmin = new Admin({
       name: req.body.name,
